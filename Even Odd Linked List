@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+
+class node{
+         public:
+            int data; 
+             node*next;
+             
+             node(int data ){
+                 this->data=data;
+                 next=NULL;
+             }
+ };
+ 
+   node*takeinput(){
+       
+           int data;
+           cin>>data;
+           node*head=NULL;
+           node*tail=NULL;
+           while(data!=-1){
+               node*newnode=new node(data);
+               if(head==NULL){
+                   head=newnode;
+                   tail=newnode;
+               }
+               else{
+                   tail->next=newnode;
+                   tail=newnode;
+               }
+               cin>>data;
+           }
+           return head;
+   }
+   
+   node*evenodd(node*head){
+                node*oddhead=NULL;
+                node*oddtail=NULL;
+                node*evenhead=NULL;
+                node*eventail=NULL;
+                
+      if(head==NULL || head->next==NULL){
+          return head;
+      }
+      
+       while(head!=NULL)
+       {
+           if(head->data%2!=0) {
+                
+          if(oddhead==NULL && oddtail==NULL)
+          {
+                   oddhead=head;
+                   oddtail=head;
+          }
+          else
+          {
+              oddtail->next=head;
+              oddtail=head;
+          }
+               }
+           else{
+       if(evenhead==NULL && eventail==NULL)
+       {
+                  evenhead=head;
+                  eventail=head;
+       }
+       else
+       {
+                eventail->next=head;
+                eventail=head;
+       }
+               } 
+           head=head->next;    
+                
+      }
+            if(oddhead==NULL){
+                 return evenhead;
+             }  
+             else if(evenhead==NULL){
+                 return oddhead;
+             }   
+             else{ 
+        oddtail->next=evenhead;
+        eventail->next=NULL;
+        return oddhead;
+        }
+                
+   }
+   
+    void print(node*head){
+           while(head!=NULL){
+               cout<<head->data<<" ";
+               head=head->next;
+           }
+    }
+int main() {
+
+       node*head=takeinput();
+       head=evenodd(head);
+       print(head);
+    return 0;
+}

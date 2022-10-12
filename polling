@@ -1,0 +1,11 @@
+import * as React from 'react'
+import { useGetPokemonByNameQuery } from './services/pokemon'
+
+export const Pokemon = ({ name }: { name: string }) => {
+  // Automatically refetch every 3s
+  const { data, status, error, refetch } = useGetPokemonByNameQuery(name, {
+    pollingInterval: 3000,
+  })
+
+  return <div>{data}</div>
+}
